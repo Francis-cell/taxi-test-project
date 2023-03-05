@@ -104,7 +104,59 @@ GitHub
 
 
 
-### 2、项目相关接口的开发
+### 2、注册中心的搭建
+
+#### 0、参考链接
+
+1、[Nacos参考文档](https://nacos.io/zh-cn/docs/quick-start-spring-cloud.html)
+
+
+
+#### 1、搭建Nacos运行环境
+
+##### 1、安装Nacos
+
+```bash
+git clone https://github.com/alibaba/nacos.git
+cd nacos/
+mvn -Prelease-nacos -Dmaven.test.skip=true clean install -U  
+ls -al distribution/target/
+
+// change the $version to your actual path
+cd distribution/target/nacos-server-$version/nacos/bin
+```
+
+
+
+##### 2、启动服务器
+
+- ==注==：Nacos的运行需要以至少2C4g60g*3的机器配置下运行。
+
+
+
+**windows**
+
+```cmd
+startup.cmd -m standalone
+```
+
+
+
+**Linux**
+
+```bash
+# 启动命令(standalone代表着单机模式运行，非集群模式):
+sh startup.sh -m standalone
+
+# 如果您使用的是ubuntu系统，或者运行脚本报错提示[[符号找不到，可尝试如下运行：
+bash startup.sh -m standalone
+```
+
+
+
+
+
+### 3、项目相关接口的开发
 
 #### 1、用户获取验证码接口
 
@@ -178,4 +230,8 @@ public class VerificationCodeService {
     }
 }
 ```
+
+
+
+
 
