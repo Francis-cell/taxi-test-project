@@ -17,11 +17,19 @@ public class NumberCodeController {
     public JSONObject numberCode(@PathVariable("size") int size) {
 
         System.out.println("size" + size);
+
+        // 生成验证码
+        double randomValue = (Math.random() * 9 + 1) * (Math.pow(10, size - 1));
+        System.out.println(randomValue);
+        int randomCode = (int)randomValue;
+        System.out.println(randomCode);
+        
+        
         JSONObject result = new JSONObject();
         result.put("code", 1);
         result.put("message", "success");
         JSONObject data = new JSONObject();
-        data.put("numberCode", 123456);
+        data.put("numberCode", randomCode);
         result.put("data", data);
 
         return result;
