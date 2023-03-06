@@ -2,6 +2,7 @@ package com.zmr.apipassenger;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
  * @author 朱梦仁 franciszmr@foxmail.com
@@ -10,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @description 启动类
  */
 @SpringBootApplication
+@EnableDiscoveryClient
 public class ApiPassengerApplication {
     public static void main(String[] args) {
         SpringApplication.run(ApiPassengerApplication.class);

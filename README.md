@@ -154,6 +154,75 @@ bash startup.sh -m standalone
 
 
 
+##### 3、配置流程
+
+###### 1、配置maven依赖
+
+```xml
+<!-- 引入Nacos -->
+    <dependency>
+        <groupId>com.alibaba.cloud</groupId>
+        <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        <version>2.1.1.RELEASE</version>
+    </dependency>
+```
+
+这里需要注意使用的Nacos版本--SpringCloud版本--Spring版本
+
+参考网站：[毕业版本依赖关系(推荐使用)Nacos](https://github.com/alibaba/spring-cloud-alibaba/wiki/%E7%89%88%E6%9C%AC%E8%AF%B4%E6%98%8E#%E6%AF%95%E4%B8%9A%E7%89%88%E6%9C%AC%E4%BE%9D%E8%B5%96%E5%85%B3%E7%B3%BB%E6%8E%A8%E8%8D%90%E4%BD%BF%E7%94%A8)
+
+
+
+我这里使用的Nacos版本是2.1.1RELEASE版本
+
+**![image-20230306220911823](https://raw.githubusercontent.com/Francis-cell/Picture/main/image-20230306220911823.png)**
+
+所以对应的SpringCloud版本为2.2.9RELEASE
+
+**![image-20230306221004661](https://raw.githubusercontent.com/Francis-cell/Picture/main/image-20230306221004661.png)**
+
+找到对应的Srping版本为2.3.12RELEASE
+
+
+
+###### 2、配置yml文件
+
+```yaml
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  application:
+    name: api-passenger
+```
+
+
+
+###### 3、Application文件添加@EnableDiscoveryClient注解
+
+```java
+@SpringBootApplication
+@EnableDiscoveryClient
+public class ApiPassengerApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(ApiPassengerApplication.class);
+    }
+}
+```
+
+
+
+###### 4、启动Nacos并登陆监听
+
+**![image-20230306221203800](https://raw.githubusercontent.com/Francis-cell/Picture/main/image-20230306221203800.png)**
+
+
+
+
+
+
+
 
 
 ### 3、项目相关接口的开发
