@@ -3,6 +3,7 @@ package com.zmr.apipassenger.remote;
 import com.zmr.internalCommon.dto.ResponseResult;
 import com.zmr.internalCommon.response.NumberCodeResponse;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -16,6 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @FeignClient("service-vericationcode")
 public interface ServiceVerificationClient {
     
-    @RequestMapping(method = RequestMethod.GET, value = "/numberCode/6")
-    ResponseResult<NumberCodeResponse> getNumberCode();
+    @RequestMapping(method = RequestMethod.GET, value = "/numberCode/{size}")
+    ResponseResult<NumberCodeResponse> getNumberCode(@PathVariable("size") int size);
 }
