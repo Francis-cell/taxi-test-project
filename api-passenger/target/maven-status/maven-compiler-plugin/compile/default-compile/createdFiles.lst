@@ -1,0 +1,5 @@
+com\zmr\apipassenger\controller\TestController.class
+com\zmr\apipassenger\request\VerificationCodeDTO.class
+com\zmr\apipassenger\service\VerificationCodeService.class
+com\zmr\apipassenger\ApiPassengerApplication.class
+com\zmr\apipassenger\controller\VerificationCodeController.class
