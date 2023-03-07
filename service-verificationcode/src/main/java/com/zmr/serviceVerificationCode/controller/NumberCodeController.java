@@ -24,6 +24,8 @@ public class NumberCodeController {
         double randomValue = (Math.random() * 9 + 1) * (Math.pow(10, size - 1));
         int randomCode = (int)randomValue;
 
+        System.out.println("验证码服务生成的验证码为：" + randomCode);
+
         NumberCodeResponse response = new NumberCodeResponse();
         response.setNumberCode(randomCode);
 
