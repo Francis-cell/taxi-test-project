@@ -9,6 +9,12 @@ import lombok.Getter;
  * @description 通用请求状态枚举类型
  */
 public enum CommonStatusEnum {
+
+    /**
+     * 验证码不正确 1000-1099
+     */
+    VARIFICATION_CODE_ERROR(1099, "验证码不正确"),
+
     /** 成功 */
     SUCCESS(1, "success"),
     /** 失败 */
