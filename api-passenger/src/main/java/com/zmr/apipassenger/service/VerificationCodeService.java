@@ -1,8 +1,10 @@
 package com.zmr.apipassenger.service;
 
+import com.zmr.apipassenger.remote.ServicePassengerUserClient;
 import com.zmr.apipassenger.remote.ServiceVerificationClient;
 import com.zmr.internalCommon.constant.CommonStatusEnum;
 import com.zmr.internalCommon.dto.ResponseResult;
+import com.zmr.internalCommon.request.VerificationCodeDTO;
 import com.zmr.internalCommon.response.NumberCodeResponse;
 import com.zmr.internalCommon.response.TokenResponse;
 import net.sf.json.JSONObject;
@@ -24,9 +26,13 @@ public class VerificationCodeService {
     
     @Autowired
     private ServiceVerificationClient serviceVerificationClient;
+
+    @Autowired
+    private ServicePassengerUserClient servicePassengerUserClient;
     
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
+    
     
     /** 乘客验证码前缀 */
     private String verificationCodePrefix = "passenger-verification-code-";
@@ -66,7 +72,6 @@ public class VerificationCodeService {
      */
     public ResponseResult checkCode(String passengerPhone, String verificationCode) {
         // 1、根据手机号，从Redis中获取对应的验证码信息
-        System.out.println("根据手机号，从Redis中获取对应的验证码信息");
         // ①、生成key
         String key = generatorKey(passengerPhone);
         // ②、根据key获取value
@@ -74,7 +79,6 @@ public class VerificationCodeService {
         System.out.println("redis中key对应的value值为：" + codeRedis);
         
         // 2、进行校验
-        System.out.println("进行校验");
         // 校验验证码
         // (StringUtils.isBlank()方法中，如果传参是" "的话，也是会返回true的; 
         // 而StringUtils.isEmpty()方法，则返回的仍然是false)
@@ -88,8 +92,12 @@ public class VerificationCodeService {
         }
         
         
-        // 3、如果原本没有用户信息，则先进行插入；如果原本有用户，则进行查询
-        System.out.println("如果原本没有用户信息，则先进行插入；如果原本有用户，则进行查询");
+        // 3、如果原本没有用户信息，则先进行插入；如果原本有用户，则进行查询（进行远程服务的调用）
+        VerificationCodeDTO verificationCodeDTO = new VerificationCodeDTO();
+        verificationCodeDTO.setPassengerPhone(passengerPhone);
+        servicePassengerUserClient.loginOrRegister(verificationCodeDTO);
+        
+        
         // 4、颁发token
         System.out.println("颁发token");
         
