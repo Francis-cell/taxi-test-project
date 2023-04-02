@@ -1,8 +1,8 @@
 package com.zmr.apipassenger.controller;
 
-import com.zmr.apipassenger.request.VerificationCodeDTO;
 import com.zmr.apipassenger.service.VerificationCodeService;
 import com.zmr.internalCommon.dto.ResponseResult;
+import com.zmr.internalCommon.request.VerificationCodeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

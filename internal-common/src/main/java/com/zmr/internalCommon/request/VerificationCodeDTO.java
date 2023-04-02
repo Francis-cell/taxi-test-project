@@ -1,6 +1,6 @@
-package com.zmr.apipassenger.request;
+package com.zmr.internalCommon.request;
 
-import lombok.*;
+import lombok.Data;
 
 /**
  * @author 朱梦仁 franciszmr@foxmail.com
