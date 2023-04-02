@@ -302,5 +302,15 @@ public class VerificationCodeService {
 
 
 
+#### 2、用户发送验证码
+
+##### 1、时序图
+
+**<img src="https://raw.githubusercontent.com/Francis-cell/Picture/main/image-20230402091632723.png" alt="image-20230402091632723" style="zoom:80%;" />**
+
+
+
+##### 2、骨架编写
+
 
 

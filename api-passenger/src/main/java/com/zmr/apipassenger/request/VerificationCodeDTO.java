@@ -8,12 +8,10 @@ import lombok.*;
  * @date 2023/3/5 17:08
  * @description 验证码请求时接收的实体类
  */
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-@ToString
+@Data
 public class VerificationCodeDTO {
     /** 电话号码 */
     private String passengerPhone;
+    /** 验证码 */
+    private String verificationCode;
 }
