@@ -3,10 +3,12 @@ package com.zmr.apipassenger.service;
 import com.zmr.apipassenger.remote.ServicePassengerUserClient;
 import com.zmr.apipassenger.remote.ServiceVerificationClient;
 import com.zmr.internalCommon.constant.CommonStatusEnum;
+import com.zmr.internalCommon.constant.IdentityConstant;
 import com.zmr.internalCommon.dto.ResponseResult;
 import com.zmr.internalCommon.request.VerificationCodeDTO;
 import com.zmr.internalCommon.response.NumberCodeResponse;
 import com.zmr.internalCommon.response.TokenResponse;
+import com.zmr.internalCommon.util.JwtUtils;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,11 +101,13 @@ public class VerificationCodeService {
         
         
         // 4、颁发token
-        System.out.println("颁发token");
+        // 初始化一个乘客身份的token
+        String token = JwtUtils.generatorToken(passengerPhone, IdentityConstant.PASSENGER_IDENTITY);
         
-        // 设置token
+        
+        // 5、设置token
         TokenResponse tokenResponse = new TokenResponse();
-        tokenResponse.setToken("token string");
+        tokenResponse.setToken(token);
 
         return ResponseResult.success(tokenResponse); 
     }
