@@ -306,11 +306,70 @@ public class VerificationCodeService {
 
 ##### 1、时序图
 
-**<img src="https://raw.githubusercontent.com/Francis-cell/Picture/main/image-20230402091632723.png" alt="image-20230402091632723" style="zoom:80%;" />**
+**<img src="https://raw.githubusercontent.com/Francis-cell/Picture/main/image-20230402103130498.png" alt="image-20230402103130498" style="zoom:80%;" />**
 
 
 
 ##### 2、骨架编写
 
+###### 1、编写接口Controller层
 
+```java
+/**
+ * 校验验证码信息
+ * @param verificationCodeDTO 校验信息
+ * @return
+ */
+@PostMapping("/verification-code-check")
+public ResponseResult checkVerificationCode(@RequestBody VerificationCodeDTO verificationCodeDTO) {
+    // 获取手机号和验证码信息
+    String passengerPhone = verificationCodeDTO.getPassengerPhone();
+    String verificationCode = verificationCodeDTO.getVerificationCode();
+
+    System.out.println("获取到的手机号:" + passengerPhone + ", 验证码: " + verificationCode);
+
+    return verificationCodeService.checkCode(passengerPhone, verificationCode);
+}
+```
+
+
+
+###### 2、编写实体类
+
+```java
+@Data
+public class TokenResponse {
+    /** token */
+    private String token;
+}	
+```
+
+
+
+###### 3、编写服务Service层
+
+```java
+/**
+ * 校验用户手机号+验证码的服务
+ * @param passengerPhone 手机号
+ * @param verificationCode 验证码
+ * @return
+ */
+public ResponseResult checkCode(String passengerPhone, String verificationCode) {
+    // 1、根据手机号，从Redis中获取对应的验证码信息
+    System.out.println("根据手机号，从Redis中获取对应的验证码信息");
+    // 2、进行校验
+    System.out.println("进行校验");
+    // 3、如果原本没有用户信息，则先进行插入；如果原本有用户，则进行查询
+    System.out.println("如果原本没有用户信息，则先进行插入；如果原本有用户，则进行查询");
+    // 4、颁发token
+    System.out.println("颁发token");
+
+    // 设置token
+    TokenResponse tokenResponse = new TokenResponse();
+    tokenResponse.setToken("token string");
+
+    return ResponseResult.success(tokenResponse); 
+}
+```
 
