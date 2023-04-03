@@ -30,6 +30,7 @@ public class TestController {
      * 不需要token的接口调用
      * @return
      */
+    @GetMapping("/noAuthTest")
     public ResponseResult noAuthTest() {
         return ResponseResult.success(" no auth test!");
     }
