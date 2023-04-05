@@ -38,6 +38,9 @@ public class VerificationCodeService {
     
     /** 乘客验证码前缀 */
     private String verificationCodePrefix = "passenger-verification-code-";
+    
+    /** token前缀 */
+    private String tokenPrefix = "token-";
 
     /**
      * 获取验证码信息服务
@@ -108,6 +111,11 @@ public class VerificationCodeService {
         // 5、设置token
         TokenResponse tokenResponse = new TokenResponse();
         tokenResponse.setToken(token);
+        
+        // 6、将token存储到Redis中（使得token可以被控制）
+        String tokenKey = generatorTokenKey(passengerPhone, IdentityConstant.PASSENGER_IDENTITY);
+        // 存储30天
+        stringRedisTemplate.opsForValue().set(tokenKey, token, 30, TimeUnit.DAYS);
 
         return ResponseResult.success(tokenResponse); 
     }
@@ -119,5 +127,15 @@ public class VerificationCodeService {
      */
     public String generatorKey(String passengerPhone) {
         return verificationCodePrefix + passengerPhone;
+    }
+
+    /**
+     * 生成token中key信息
+     * @param phone 用户手机号
+     * @param identify 用户身份标识
+     * @return
+     */
+    public String generatorTokenKey(String phone, String identify) {
+        return tokenPrefix + phone + "-" + identify;
     }
 }
