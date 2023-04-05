@@ -1,4 +1,4 @@
-package com.zmr.servicePassengerUser.dto;
+package com.zmr.internalCommon.dto;
 
 import lombok.Data;
 
@@ -26,4 +26,6 @@ public class PassengerUser {
     private byte passengerGender;
     /** 乘客状态 */
     private byte state;
+    /** 用户头像 */
+    private String profilePhoto;
 }

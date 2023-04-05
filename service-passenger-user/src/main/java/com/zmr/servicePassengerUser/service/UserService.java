@@ -1,7 +1,7 @@
 package com.zmr.servicePassengerUser.service;
 
+import com.zmr.internalCommon.dto.PassengerUser;
 import com.zmr.internalCommon.dto.ResponseResult;
-import com.zmr.servicePassengerUser.dto.PassengerUser;
 import com.zmr.servicePassengerUser.mapper.PassengerUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

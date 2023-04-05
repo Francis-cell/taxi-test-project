@@ -375,11 +375,29 @@ public ResponseResult checkCode(String passengerPhone, String verificationCode) 
 
 
 
+#### 3、生成双token服务
+
+参看知识点补充部分双token
+
+
+
+#### 4、查询用户信息接口
+
+##### 1、查询乘客用户信息时序图
+
+**<img src="https://raw.githubusercontent.com/Francis-cell/Picture/main/image-20230405170952843.png" alt="image-20230405170952843" style="zoom:80%;" />**
 
 
 
 
-### 4、知识点补充
+
+
+
+
+
+
+
+### append、知识点补充
 
 #### 1、JWT相关
 
