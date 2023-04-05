@@ -1,8 +1,5 @@
 package com.zmr.apipassenger.interceptor;
 
-import com.auth0.jwt.exceptions.AlgorithmMismatchException;
-import com.auth0.jwt.exceptions.SignatureVerificationException;
-import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.zmr.internalCommon.constant.TokenConstants;
 import com.zmr.internalCommon.dto.ResponseResult;
 import com.zmr.internalCommon.dto.TokenResult;
@@ -36,32 +33,9 @@ public class JwtInterceptor implements HandlerInterceptor {
         String resultString = "";
         
         String token = request.getHeader("Authorization");
-        TokenResult tokenResult = null;
         // 解析token
-        try {
-            tokenResult = JwtUtils.parseToken(token);
-        } 
-        // 签名错误
-        catch (SignatureVerificationException e) {
-            resultString = "token sign error";
-            result = false;
-        }
-        // token过期
-        catch (TokenExpiredException e) {
-            resultString = "token expired";
-            result = false;
-        }
-        // 算法错误
-        catch (AlgorithmMismatchException e) {
-            resultString = "algorithm error";
-            result = false;
-        }
-        // 其他异常情况
-        catch (Exception e) {
-            resultString = "token invalid";
-            result = false;
-        }
-        
+        TokenResult tokenResult = JwtUtils.checkToken(token);
+
         // 校验token是否和Redis中存储的token值是一致的
         if (tokenResult == null) {
             resultString = "token invalid";
@@ -74,18 +48,11 @@ public class JwtInterceptor implements HandlerInterceptor {
             String tokenKey = RedisPrefixUtils.generatorTokenKey(phone, identity, TokenConstants.ACCESS_TOKEN_TYPE);
             // 从redis中获取token
             String tokenRedis = stringRedisTemplate.opsForValue().get(tokenKey);
-            if (StringUtils.isBlank(tokenRedis)) {
+            if ((StringUtils.isBlank(tokenRedis)) || (!token.trim().equals(tokenRedis.trim()))) {
                 resultString = "token invalid";
                 result = false;
-            } else {
-                if (!token.trim().equals(tokenRedis.trim())) {
-                    resultString = "token invalid";
-                    result = false;
-                }
             }
         }
-        
-        
         
         // token校验失败情况处理
         if (!result) {
