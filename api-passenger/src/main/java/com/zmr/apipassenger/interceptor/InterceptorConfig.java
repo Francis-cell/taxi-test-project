@@ -1,5 +1,6 @@
 package com.zmr.apipassenger.interceptor;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -12,10 +13,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 public class InterceptorConfig implements WebMvcConfigurer {
+    
+    /** 在初始化Spring Bean的时候手动初始化一下JWT拦截器 */
+    @Bean
+    public JwtInterceptor jwtInterceptor() {
+        return new JwtInterceptor();
+    }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new JwtInterceptor())
+        registry.addInterceptor(jwtInterceptor())
                 // 拦截的路径(一般直接定义所有的路径)
                 .addPathPatterns("/**")
                 // 不拦截的路径(就是需要被排除在外的路径)

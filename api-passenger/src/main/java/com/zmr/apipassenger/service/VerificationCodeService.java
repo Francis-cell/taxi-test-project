@@ -9,7 +9,7 @@ import com.zmr.internalCommon.request.VerificationCodeDTO;
 import com.zmr.internalCommon.response.NumberCodeResponse;
 import com.zmr.internalCommon.response.TokenResponse;
 import com.zmr.internalCommon.util.JwtUtils;
-import net.sf.json.JSONObject;
+import com.zmr.internalCommon.util.RedisPrefixUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -35,12 +35,6 @@ public class VerificationCodeService {
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
     
-    
-    /** 乘客验证码前缀 */
-    private String verificationCodePrefix = "passenger-verification-code-";
-    
-    /** token前缀 */
-    private String tokenPrefix = "token-";
 
     /**
      * 获取验证码信息服务
@@ -61,7 +55,7 @@ public class VerificationCodeService {
         // 存入Redis
         System.out.println("存入Redis");
         // key、value、过期时间
-        String key = generatorKey(passengerPhone);
+        String key = RedisPrefixUtils.generatorKey(passengerPhone);
         // 存入Redis(设置key:numberCode的过期时间为2min)
         stringRedisTemplate.opsForValue().set(key, numberCode+"", 2, TimeUnit.MINUTES);
 
@@ -78,7 +72,7 @@ public class VerificationCodeService {
     public ResponseResult checkCode(String passengerPhone, String verificationCode) {
         // 1、根据手机号，从Redis中获取对应的验证码信息
         // ①、生成key
-        String key = generatorKey(passengerPhone);
+        String key = RedisPrefixUtils.generatorKey(passengerPhone);
         // ②、根据key获取value
         String codeRedis = stringRedisTemplate.opsForValue().get(key);
         System.out.println("redis中key对应的value值为：" + codeRedis);
@@ -113,29 +107,10 @@ public class VerificationCodeService {
         tokenResponse.setToken(token);
         
         // 6、将token存储到Redis中（使得token可以被控制）
-        String tokenKey = generatorTokenKey(passengerPhone, IdentityConstant.PASSENGER_IDENTITY);
+        String tokenKey = RedisPrefixUtils.generatorTokenKey(passengerPhone, IdentityConstant.PASSENGER_IDENTITY);
         // 存储30天
         stringRedisTemplate.opsForValue().set(tokenKey, token, 30, TimeUnit.DAYS);
 
         return ResponseResult.success(tokenResponse); 
-    }
-
-    /**
-     * 生成redis中key信息
-     * @param passengerPhone 手机号
-     * @return
-     */
-    public String generatorKey(String passengerPhone) {
-        return verificationCodePrefix + passengerPhone;
-    }
-
-    /**
-     * 生成token中key信息
-     * @param phone 用户手机号
-     * @param identify 用户身份标识
-     * @return
-     */
-    public String generatorTokenKey(String phone, String identify) {
-        return tokenPrefix + phone + "-" + identify;
     }
 }
