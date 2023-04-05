@@ -20,6 +20,13 @@ public enum CommonStatusEnum {
      */
     TOKEN_ERROR(1199, "token不正确"),
 
+    /**
+     * 用户相关信息 1200-1299
+     */
+    USER_NOT_EXIST(1200, "用户不存在"),
+
+
+
     /** 成功 */
     SUCCESS(1, "success"),
     /** 失败 */
