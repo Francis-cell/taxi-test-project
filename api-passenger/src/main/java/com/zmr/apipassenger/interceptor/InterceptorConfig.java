@@ -30,6 +30,8 @@ public class InterceptorConfig implements WebMvcConfigurer {
                 // 获取验证码服务
                 .excludePathPatterns("/verification-code")
                 // 校验验证码服务
-                .excludePathPatterns("/verification-code-check");
+                .excludePathPatterns("/verification-code-check")
+                // 使用refreshToken生成双token服务
+                .excludePathPatterns("/token-refresh");
     }
 }

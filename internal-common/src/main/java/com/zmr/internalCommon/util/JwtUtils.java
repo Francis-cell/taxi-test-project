@@ -33,6 +33,8 @@ public class JwtUtils {
     public final static String JWT_KEY_IDENTITY = "identity";
     /** token类型 */
     public final static String JWT_TOKEN_TYPE = "tokenType";
+    /** token时间，用于生成不同的token */
+    public final static String JWT_TOKEN_TIME = "tokenTime";
     
     /** 生成token */
     public static String generatorToken(String passengerPhone, String identity, String tokenType) {
@@ -41,11 +43,14 @@ public class JwtUtils {
         map.put(JWT_KEY_IDENTITY, identity);
         map.put(JWT_TOKEN_TYPE, tokenType);
 
-        // token过期时间
-        Calendar calendar = Calendar.getInstance();
-        // 设置过期时间为1天
-        calendar.add(Calendar.DATE, 1);
-        Date date = calendar.getTime();
+        //// token过期时间
+        //Calendar calendar = Calendar.getInstance();
+        //// 设置过期时间为1天
+        //calendar.add(Calendar.DATE, 1);
+        //Date date = calendar.getTime();
+        
+        // 使用时间戳作为JWT_TOKEN_TIME的值，用于每次生成的token都生成不同的值
+        map.put(JWT_TOKEN_TIME, Calendar.getInstance().getTime().toString());
         
         // 创建JWT的builder
         JWTCreator.Builder builder = JWT.create();
@@ -85,9 +90,9 @@ public class JwtUtils {
         try {
             tokenResult = JwtUtils.parseToken(token);
         } catch (Exception e) {
-            
+            return null;
         }
-        return null;
+        return tokenResult;
     }
     
 
