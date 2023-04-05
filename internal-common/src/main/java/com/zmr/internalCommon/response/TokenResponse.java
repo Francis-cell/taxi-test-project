@@ -10,6 +10,9 @@ import lombok.Data;
  */
 @Data
 public class TokenResponse {
-    /** token */
-    private String token;
+    /** accessToken */
+    private String accessToken;
+    
+    /** refreshToken */
+    private String refreshToken;
 }

@@ -30,7 +30,7 @@ public class RedisPrefixUtils {
      * @param identify 用户身份标识
      * @return
      */
-    public static String generatorTokenKey(String phone, String identify) {
-        return tokenPrefix + phone + "-" + identify;
+    public static String generatorTokenKey(String phone, String identify, String tokenType) {
+        return tokenPrefix + phone + "-" + identify + "-" + tokenType;
     }
 }

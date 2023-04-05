@@ -3,7 +3,8 @@ package com.zmr.apipassenger.service;
 import com.zmr.apipassenger.remote.ServicePassengerUserClient;
 import com.zmr.apipassenger.remote.ServiceVerificationClient;
 import com.zmr.internalCommon.constant.CommonStatusEnum;
-import com.zmr.internalCommon.constant.IdentityConstant;
+import com.zmr.internalCommon.constant.IdentityConstants;
+import com.zmr.internalCommon.constant.TokenConstants;
 import com.zmr.internalCommon.dto.ResponseResult;
 import com.zmr.internalCommon.request.VerificationCodeDTO;
 import com.zmr.internalCommon.response.NumberCodeResponse;
@@ -99,17 +100,23 @@ public class VerificationCodeService {
         
         // 4、颁发token
         // 初始化一个乘客身份的token
-        String token = JwtUtils.generatorToken(passengerPhone, IdentityConstant.PASSENGER_IDENTITY);
+        String accessToken = JwtUtils.generatorToken(passengerPhone, IdentityConstants.PASSENGER_IDENTITY, TokenConstants.ACCESS_TOKEN_TYPE);
+        String refreshToken = JwtUtils.generatorToken(passengerPhone, IdentityConstants.PASSENGER_IDENTITY, TokenConstants.REFRESH_TOKEN_TYPE);       
+        
         
         
         // 5、设置token
         TokenResponse tokenResponse = new TokenResponse();
-        tokenResponse.setToken(token);
+        tokenResponse.setAccessToken(accessToken);
+        tokenResponse.setRefreshToken(refreshToken);
         
         // 6、将token存储到Redis中（使得token可以被控制）
-        String tokenKey = RedisPrefixUtils.generatorTokenKey(passengerPhone, IdentityConstant.PASSENGER_IDENTITY);
+        String accessTokenKey = RedisPrefixUtils.generatorTokenKey(passengerPhone, IdentityConstants.PASSENGER_IDENTITY, TokenConstants.ACCESS_TOKEN_TYPE);
+        String refreshTokenKey = RedisPrefixUtils.generatorTokenKey(passengerPhone, IdentityConstants.PASSENGER_IDENTITY, TokenConstants.REFRESH_TOKEN_TYPE);
         // 存储30天
-        stringRedisTemplate.opsForValue().set(tokenKey, token, 30, TimeUnit.DAYS);
+        stringRedisTemplate.opsForValue().set(accessTokenKey, accessToken, 30, TimeUnit.DAYS);
+        // 存储时间稍微比accessToken的时间长些
+        stringRedisTemplate.opsForValue().set(refreshTokenKey, refreshToken, 31, TimeUnit.DAYS);
 
         return ResponseResult.success(tokenResponse); 
     }

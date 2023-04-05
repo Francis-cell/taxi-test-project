@@ -6,7 +6,7 @@ package com.zmr.internalCommon.constant;
  * @date 2023/4/3 22:43
  * @description 身份标识声明类
  */
-public class IdentityConstant {
+public class IdentityConstants {
     /** 乘客 */
     public final static String PASSENGER_IDENTITY = "1";
     

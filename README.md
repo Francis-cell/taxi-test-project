@@ -373,3 +373,54 @@ public ResponseResult checkCode(String passengerPhone, String verificationCode) 
 }
 ```
 
+
+
+
+
+
+
+### 4、知识点补充
+
+#### 1、JWT相关
+
+##### 1、jwt前后端认证过程中的流程图
+
+**<img src="https://raw.githubusercontent.com/Francis-cell/Picture/main/image-20230405144026475.png" alt="image-20230405144026475" style="zoom:80%;" />**
+
+
+
+
+
+#### 2、token认证方式--防止token过期
+
+##### 1、**两种方式：**
+
+方式1：
+
+```bash
+概述: 用户每次请求系统的接口的时候，都会去生成一个新的token，然后将新的token传递会用户，后续持续如此
+缺点: 1、对于"服务器的压力过大"，请求的次数过多，将会耗费很多资源；
+     2、 这样也会导致token变得更加的"不安全"
+     
+可以优化成：用户每天第一次向系统请求接口的时候，更新token，当天其余的请求将不会继续更新token     
+```
+
+
+
+方式2：
+
+```bash
+概述：双token，一个是用户正常使用的token，一个是用来刷新使用token的刷新token
+token过期的时候，生成token （"accessToken", "refreshToken"）
+```
+
+
+
+##### 2、双Token生成的时序图
+
+**<img src="https://raw.githubusercontent.com/Francis-cell/Picture/main/image-20230405145438672.png" alt="image-20230405145438672" style="zoom:80%;" />**
+
+
+
+
+
