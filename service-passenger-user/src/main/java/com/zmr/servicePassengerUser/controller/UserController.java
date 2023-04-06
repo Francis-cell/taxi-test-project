@@ -3,7 +3,7 @@ package com.zmr.servicePassengerUser.controller;
 import com.zmr.internalCommon.dto.ResponseResult;
 import com.zmr.internalCommon.request.VerificationCodeDTO;
 import com.zmr.servicePassengerUser.service.UserService;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
  * @description user插入服务
  */
 @RestController
-@Log4j2
+@Slf4j
 public class UserController {
     @Autowired
     private UserService userService;

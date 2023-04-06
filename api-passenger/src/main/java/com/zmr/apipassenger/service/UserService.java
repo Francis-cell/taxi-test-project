@@ -1,16 +1,12 @@
 package com.zmr.apipassenger.service;
 
 import com.zmr.apipassenger.remote.ServicePassengerUserClient;
-import com.zmr.internalCommon.dto.PassengerUser;
 import com.zmr.internalCommon.dto.ResponseResult;
 import com.zmr.internalCommon.dto.TokenResult;
-import com.zmr.internalCommon.request.VerificationCodeDTO;
 import com.zmr.internalCommon.util.JwtUtils;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.xml.validation.Validator;
 
 /**
  * @author 朱梦仁 franciszmr@foxmail.com
@@ -19,7 +15,7 @@ import javax.xml.validation.Validator;
  * @description
  */
 @Service
-@Log4j2
+@Slf4j
 public class UserService {
     
     @Autowired

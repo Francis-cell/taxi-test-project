@@ -4,7 +4,7 @@ import com.zmr.internalCommon.constant.CommonStatusEnum;
 import com.zmr.internalCommon.dto.PassengerUser;
 import com.zmr.internalCommon.dto.ResponseResult;
 import com.zmr.servicePassengerUser.mapper.PassengerUserMapper;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +20,7 @@ import java.util.Map;
  * @description
  */
 @Service
-@Log4j2
+@Slf4j
 public class UserService {
     
     @Autowired

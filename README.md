@@ -225,7 +225,7 @@ public class ApiPassengerApplication {
 
 
 
-### 3、项目相关接口的开发
+### 3、用户服务相关接口开发
 
 #### 1、用户获取验证码接口
 
@@ -391,6 +391,26 @@ public ResponseResult checkCode(String passengerPhone, String verificationCode) 
 
 
 
+### 4、平台服务相关接口开发
+
+#### 1、预估价格服务
+
+##### 1、描述
+
+
+
+
+
+##### 2、时序图
+
+**<img src="https://raw.githubusercontent.com/Francis-cell/Picture/main/image-20230406211315546.png" alt="image-20230406211315546" style="zoom:80%;" />**
+
+
+
+
+
+
+
 
 
 
@@ -404,8 +424,6 @@ public ResponseResult checkCode(String passengerPhone, String verificationCode) 
 ##### 1、jwt前后端认证过程中的流程图
 
 **<img src="https://raw.githubusercontent.com/Francis-cell/Picture/main/image-20230405144026475.png" alt="image-20230405144026475" style="zoom:80%;" />**
-
-
 
 
 
@@ -437,8 +455,4 @@ token过期的时候，生成token （"accessToken", "refreshToken"）
 ##### 2、双Token生成的时序图
 
 **<img src="https://raw.githubusercontent.com/Francis-cell/Picture/main/image-20230405145438672.png" alt="image-20230405145438672" style="zoom:80%;" />**
-
-
-
-
 
